@@ -2,29 +2,40 @@ import React, { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 import api from "../../services/api";
 import "./style.css";
+import { UserTypeActions } from "../../redux/ducks/userTypeReducer";
+import { useDispatch } from "react-redux";
+import parseJwt from "../../helpers/parseJwt";
 
 export default function Login() {
+	const dispatch = useDispatch();
+	const history = useHistory();
+
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [errorLogin, setErrorLogin] = useState("");
 	const [disableButton, setDisableButton] = useState(false);
 	const [buttonLogin, setButtonLogin] = useState("Entrar");
-	const history = useHistory();
 
 	function handleLogin(event) {
 		setButtonLogin("Carregando...");
 		setDisableButton(true);
 		event.preventDefault();
 		setErrorLogin("");
-		(async function() {
+		(async function () {
 			const response = await api.post("/login", {
 				login: email,
 				password: password,
 			});
-			console.log(response);
+
 			if (response.data.error === false) {
+				const tokenUsuario = parseJwt(response.data.data);
+				console.log(tokenUsuario);
+				dispatch(
+					UserTypeActions.updateUserTypeIds(tokenUsuario.tipo_usuario)
+				);
+				localStorage.setItem("@token", response.data.data);
+
 				history.push("/usuario_admin");
-				alert(response.data.data);
 			} else {
 				alert(`${response.data.message}`);
 				setErrorLogin(response.data.message);
