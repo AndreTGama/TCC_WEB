@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 import api from "../../services/api";
 import "./style.css";
+import { UserTypeActions } from "../../redux/ducks/userTypeReducer";
+import { useDispatch } from "react-redux";
+import parseJwt from "../../helpers/parseJwt";
 
 export default function Login() {
+<<<<<<< HEAD
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errorLogin, setErrorLogin] = useState("");
@@ -34,6 +38,45 @@ export default function Login() {
             setDisableButton(false);
         })();
     }
+=======
+	const dispatch = useDispatch();
+	const history = useHistory();
+
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [errorLogin, setErrorLogin] = useState("");
+	const [disableButton, setDisableButton] = useState(false);
+	const [buttonLogin, setButtonLogin] = useState("Entrar");
+
+	function handleLogin(event) {
+		setButtonLogin("Carregando...");
+		setDisableButton(true);
+		event.preventDefault();
+		setErrorLogin("");
+		(async function () {
+			const response = await api.post("/login", {
+				login: email,
+				password: password,
+			});
+
+			if (response.data.error === false) {
+				const tokenUsuario = parseJwt(response.data.data);
+				console.log(tokenUsuario);
+				dispatch(
+					UserTypeActions.updateUserTypeIds(tokenUsuario.tipo_usuario)
+				);
+				localStorage.setItem("@token", response.data.data);
+
+				history.push("/usuario_admin");
+			} else {
+				alert(`${response.data.message}`);
+				setErrorLogin(response.data.message);
+			}
+			setButtonLogin("Entrar");
+			setDisableButton(false);
+		})();
+	}
+>>>>>>> 8723696187e3f8e70edba794ddf8b4e0f33e77cb
 
     return ( <
         section className = "background_page_form" >
