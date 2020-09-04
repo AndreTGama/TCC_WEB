@@ -88,7 +88,12 @@ export default function Index() {
 				alert("ATENÇÃO", "Cep não encontrado", "warning");
 			});
 	}
-
+	async function handleCancel(event)
+	{
+		event.preventDefault();
+		setState("");
+		setLogin("");
+	}
 	return (
 		<section className="background_page_form">
 			<div className="container">
@@ -522,10 +527,11 @@ export default function Index() {
 										</div>
 										<div className="col-12 col-lg-6 col-md-6 form-group">
 											<button
-												type="submit"
+												type="button"
 												disabled={disableButton}
 												className="btn btn-danger btn-block"
 												id="loginBtn"
+												onClick={handleCancel}
 											>
 												Cancelar
 											</button>
