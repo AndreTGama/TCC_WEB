@@ -88,12 +88,32 @@ export default function Index() {
 				alert("ATENÇÃO", "Cep não encontrado", "warning");
 			});
 	}
-	async function handleCancel(event)
-	{
+
+	async function handleCancel(event) {
 		event.preventDefault();
 		setState("");
 		setLogin("");
+		setPassword("");
+		setNameUser("");
+		setEmail("");
+		setBirthDate("");
+		setTypeUsersId("");
+		setPostCode("");
+		setStreet("");
+		setnumber("");
+		setCity("");
+		setState("");
+		setDistrict("");
+		setCountry("");
+		setDddTel("");
+		setDddCel("");
+		setTelNumber("");
+		setCelNumber("");
+		setCpf("");
+		setCnpj("");
+		setErrorLogin("");
 	}
+
 	return (
 		<section className="background_page_form">
 			<div className="container">
@@ -108,13 +128,14 @@ export default function Index() {
 									<div className="row justify-content-center">
 										<div className="form-group col-12 col-md-9 col-lg-9">
 											<label htmlFor="name">
-												<b>Nome Completo</b>
+												<b> Nome Completo </b>
 											</label>
+
 											<input
 												type="text"
 												name="name"
 												id="name"
-												placeholder="Digite seu login"
+												placeholder="Digite seu Nome Completo"
 												className="form-control"
 												onChange={(event) =>
 													setNameUser(
@@ -124,10 +145,12 @@ export default function Index() {
 												required
 											/>
 										</div>
+
 										<div className="form-group col-12 col-md-3 col-lg-3">
 											<label htmlFor="DateBirth">
-												<b>Data Nascimento</b>
+												<b> Data Nascimento </b>
 											</label>
+
 											<InputMask
 												mask="99/99/9999"
 												type="text"
@@ -144,11 +167,13 @@ export default function Index() {
 											/>
 										</div>
 									</div>
+
 									<div className="row justify-content-start form-group">
 										<div className="col-12 col-md-6 col-lg-6">
 											<label htmlFor="TypeUsers">
-												<b>Tipo de Usuário</b>
+												<b> Tipo de Usuário </b>
 											</label>
+
 											<select
 												required
 												className="form-control"
@@ -161,28 +186,32 @@ export default function Index() {
 												<option value="">
 													Escolha um tipo de usuário
 												</option>
+
 												<option value="2">
 													Empresa
 												</option>
+
 												<option value="3">
 													Usuário Comum
 												</option>
 											</select>
 										</div>
 									</div>
+
 									<div className="row justify-content-start">
 										<div className="form-group col-12 col-md-6 col-lg-6">
 											{typeUsersId === "2" && (
 												<>
 													<label htmlFor="cpf">
-														<b>CNPJ</b>
+														<b> CNPJ </b>
 													</label>
+
 													<InputMask
 														mask="99.999.999/9999-99"
 														type="text"
 														name="cpf"
 														id="cpf"
-														placeholder="Digite seu login"
+														placeholder="Digite seu CNPJ"
 														className="form-control"
 														onChange={(event) =>
 															setCnpj(
@@ -194,17 +223,19 @@ export default function Index() {
 													/>
 												</>
 											)}
+
 											{typeUsersId === "3" && (
 												<>
 													<label htmlFor="cpf">
-														<b>CPF</b>
+														<b> CPF </b>
 													</label>
+
 													<InputMask
 														mask="999.999.99-99"
 														type="text"
 														name="cpf"
 														id="cpf"
-														placeholder="Digite seu login"
+														placeholder="Digite seu CPF"
 														className="form-control"
 														onChange={(event) =>
 															setCpf(
@@ -218,11 +249,13 @@ export default function Index() {
 											)}
 										</div>
 									</div>
+
 									<div className="row justify-content-center">
 										<div className="form-group col-12 col-md-6 col-lg-6">
 											<label htmlFor="Login">
-												<b>Login</b>
+												<b> Login </b>
 											</label>
+
 											<input
 												type="text"
 												name="Login"
@@ -235,10 +268,12 @@ export default function Index() {
 												required
 											/>
 										</div>
+
 										<div className="form-group col-12 col-md-6 col-lg-6">
 											<label htmlFor="DateBirth">
-												<b>Senha</b>
+												<b> Senha </b>
 											</label>
+
 											<input
 												type="password"
 												name="password"
@@ -254,11 +289,13 @@ export default function Index() {
 											/>
 										</div>
 									</div>
+
 									<div className="row justify-content-start">
 										<div className="form-group col-12 col-md-6 col-lg-6">
 											<label htmlFor="Email">
-												<b>E-mail</b>
+												<b> E - mail </b>
 											</label>
+
 											<input
 												type="text"
 												name="Email"
@@ -273,11 +310,13 @@ export default function Index() {
 											/>
 										</div>
 									</div>
+
 									<div className="row justify-content-start">
 										<div className="form-group col-2">
 											<label htmlFor="ddd">
-												<b>DDD Telefone</b>
+												<b> DDD Telefone </b>
 											</label>
+
 											<InputMask
 												mask="(99)"
 												required
@@ -293,10 +332,12 @@ export default function Index() {
 												}
 											/>
 										</div>
+
 										<div className="form-group col-2">
 											<label htmlFor="telNumber">
-												<b>Telefone</b>
+												<b> Telefone </b>
 											</label>
+
 											<InputMask
 												mask="9999-9999"
 												required
@@ -313,11 +354,13 @@ export default function Index() {
 											/>
 										</div>
 									</div>
+
 									<div className="row justify-content-start">
 										<div className="form-group col-2">
 											<label htmlFor="dddCel">
-												<b>DDD Celular</b>
+												<b> DDD Celular </b>
 											</label>
+
 											<InputMask
 												mask="(99)"
 												required
@@ -333,10 +376,12 @@ export default function Index() {
 												}
 											/>
 										</div>
+
 										<div className="form-group col-2">
 											<label htmlFor="cel">
-												<b>Número Celular</b>
+												<b> Número Celular </b>
 											</label>
+
 											<InputMask
 												mask="99999-9999"
 												required
@@ -353,11 +398,13 @@ export default function Index() {
 											/>
 										</div>
 									</div>
+
 									<div className="row">
 										<div className="col-12 col-md-4 col-lg-4 form-group">
 											<p>
-												<b>CEP</b>
+												<b> CEP </b>
 											</p>
+
 											<div className="input-group mb-3">
 												<InputMask
 													mask="99999-999"
@@ -374,6 +421,7 @@ export default function Index() {
 														)
 													}
 												/>
+
 												<div className="input-group-append">
 													<button
 														className="btn btn-success btn-block"
@@ -385,10 +433,12 @@ export default function Index() {
 												</div>
 											</div>
 										</div>
+
 										<div className="col-12 col-md-8 col-lg-8 form-group">
 											<p>
-												<b>Logradouro</b>
+												<b> Logradouro </b>
 											</p>
+
 											<input
 												required
 												disabled={cepNotFound}
@@ -406,11 +456,13 @@ export default function Index() {
 											/>
 										</div>
 									</div>
+
 									<div className="row">
 										<div className="col-12 col-md-4 col-lg-4 form-group">
 											<p>
-												<b>Número</b>
+												<b> Número </b>
 											</p>
+
 											<input
 												required
 												type="text"
@@ -426,10 +478,12 @@ export default function Index() {
 												}
 											/>
 										</div>
+
 										<div className="col-12 col-md-4 col-lg-4 form-group">
 											<p>
-												<b>Bairro</b>
+												<b> Bairro </b>
 											</p>
+
 											<input
 												required
 												disabled={cepNotFound}
@@ -447,11 +501,13 @@ export default function Index() {
 											/>
 										</div>
 									</div>
+
 									<div className="row">
 										<div className="col-12 col-md-8 col-lg-8 form-group">
 											<p>
-												<b>Cidade</b>
+												<b> Cidade </b>
 											</p>
+
 											<input
 												required
 												disabled={cepNotFound}
@@ -466,10 +522,12 @@ export default function Index() {
 												}
 											/>
 										</div>
+
 										<div className="col-12 col-md-4 col-lg-4 form-group">
 											<p>
-												<b>UF</b>
+												<b> UF </b>
 											</p>
+
 											<input
 												required
 												disabled={cepNotFound}
@@ -485,10 +543,12 @@ export default function Index() {
 												}
 											/>
 										</div>
+
 										<div className="col-12 col-md-4 col-lg-4 form-group">
 											<p>
-												<b>País</b>
+												<b> País </b>
 											</p>
+
 											<input
 												required
 												type="text"
@@ -505,6 +565,7 @@ export default function Index() {
 											/>
 										</div>
 									</div>
+
 									<div className="row justify-content-center">
 										<div className="form-group col-10">
 											<span className="errorLogin">
@@ -513,6 +574,7 @@ export default function Index() {
 										</div>
 									</div>
 								</div>
+
 								<div className="card-footer">
 									<div className="row justify-content-center">
 										<div className="col-12 col-lg-6 col-md-6 form-group">
@@ -525,12 +587,13 @@ export default function Index() {
 												{buttonRegister}
 											</button>
 										</div>
+
 										<div className="col-12 col-lg-6 col-md-6 form-group">
 											<button
 												type="button"
 												disabled={disableButton}
 												className="btn btn-danger btn-block"
-												id="loginBtn"
+												id="cancelCad"
 												onClick={handleCancel}
 											>
 												Cancelar

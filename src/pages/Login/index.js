@@ -59,7 +59,7 @@ export default function Login() {
 									<div className="row justify-content-center text-center">
 										<div className="form-group col-10">
 											<label htmlFor="loginEmail">
-												<b>Login</b>
+												<b> Login </b>
 											</label>
 											<input
 												type="text"
@@ -77,7 +77,7 @@ export default function Login() {
 									<div className="row justify-content-center text-center">
 										<div className="form-group col-10">
 											<label htmlFor="passwordLogin">
-												<b>Senha</b>
+												<b> Senha </b>
 											</label>
 											<input
 												type="password"
@@ -97,6 +97,7 @@ export default function Login() {
 									<div className="row justify-content-center">
 										<div className="form-group col-10">
 											<span className="errorLogin">
+												
 												{errorLogin}
 											</span>
 										</div>
@@ -109,6 +110,7 @@ export default function Login() {
 												className="btn btn-primary btn-block"
 												id="loginBtn"
 											>
+												
 												{buttonLogin}
 											</button>
 										</div>
@@ -119,7 +121,7 @@ export default function Login() {
 												to={"/esqueceu-senha"}
 												id="forgotpassword"
 											>
-												Esqueceu Senha?
+												Esqueceu a Senha ?
 											</Link>
 										</div>
 									</div>
@@ -129,13 +131,13 @@ export default function Login() {
 												to={"/registro"}
 												id="forgotpassword"
 											>
-												Cadastro
+												Cadastrar - se
 											</Link>
 										</div>
 									</div>
 								</form>
 								<div className="row justify-content-center text-center">
-									<div className="col-10 form-group"></div>
+									<div className="col-10 form-group"> </div>
 								</div>
 							</div>
 						</div>
