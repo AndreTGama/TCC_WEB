@@ -1,43 +1,43 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
-import { FaSearch } from "react-icons/fa";
-import cep from "cep-promise";
-import api from "../../../services/api";
-import "./style.css";
-import InputMask from "react-input-mask";
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { FaSearch } from 'react-icons/fa';
+import InputMask from 'react-input-mask';
+import cep from 'cep-promise';
+import api from '../../../services/api';
+import './style.css';
 
 export default function Index() {
-	const [login, setLogin] = useState("");
-	const [password, setPassword] = useState("");
-	const [nameUser, setNameUser] = useState("");
-	const [email, setEmail] = useState("");
-	const [birthDate, setBirthDate] = useState("");
-	const [typeUsersId, setTypeUsersId] = useState("");
-	const [postCode, setPostCode] = useState("");
-	const [street, setStreet] = useState("");
-	const [number, setnumber] = useState("");
-	const [city, setCity] = useState("");
-	const [state, setState] = useState("");
-	const [district, setDistrict] = useState("");
-	const [country, setCountry] = useState("");
-	const [dddTel, setDddTel] = useState("");
-	const [dddCel, setDddCel] = useState("");
-	const [telNumber, setTelNumber] = useState("");
-	const [celNumber, setCelNumber] = useState("");
-	const [cpf, setCpf] = useState("");
-	const [cnpj, setCnpj] = useState("");
-	const [errorLogin, setErrorLogin] = useState("");
+	const [login, setLogin] = useState('');
+	const [password, setPassword] = useState('');
+	const [nameUser, setNameUser] = useState('');
+	const [email, setEmail] = useState('');
+	const [birthDate, setBirthDate] = useState('');
+	const [typeUsersId, setTypeUsersId] = useState('');
+	const [postCode, setPostCode] = useState('');
+	const [street, setStreet] = useState('');
+	const [number, setnumber] = useState('');
+	const [city, setCity] = useState('');
+	const [state, setState] = useState('');
+	const [district, setDistrict] = useState('');
+	const [country, setCountry] = useState('');
+	const [dddTel, setDddTel] = useState('');
+	const [dddCel, setDddCel] = useState('');
+	const [telNumber, setTelNumber] = useState('');
+	const [celNumber, setCelNumber] = useState('');
+	const [cpf, setCpf] = useState('');
+	const [cnpj, setCnpj] = useState('');
+	const [errorLogin, setErrorLogin] = useState('');
 	const [disableButton, setDisableButton] = useState(false);
 	const [cepNotFound, setCepNotFound] = useState(false);
 
-	const [buttonRegister, setButtonRegister] = useState("Registrar");
+	const [buttonRegister, setButtonRegister] = useState('Registrar');
 	const history = useHistory();
 
 	async function handleSubmit(event) {
-		setButtonRegister("Carregando...");
+		setButtonRegister('Carregando...');
 		setDisableButton(true);
 		event.preventDefault();
-		setErrorLogin("");
+		setErrorLogin('');
 		const data = {
 			login,
 			password,
@@ -59,16 +59,16 @@ export default function Index() {
 			cpf,
 			cnpj,
 		};
-		const response = await api.post("/user/create-user", data);
+		const response = await api.post('/user/create-user', data);
 		console.log(response);
 		if (response.data.error === false) {
-			history.push("/login");
+			history.push('/login');
 			alert(response.data.data);
 		} else {
 			alert(`${response.data.message}`);
 			setErrorLogin(response.data.message);
 		}
-		setButtonRegister("Registrar");
+		setButtonRegister('Registrar');
 		setDisableButton(false);
 	}
 
@@ -85,33 +85,33 @@ export default function Index() {
 			.catch((error) => {
 				console.log(`error: ${error}`);
 				setCepNotFound(false);
-				alert("ATENÇÃO", "Cep não encontrado", "warning");
+				alert('ATENÇÃO', 'Cep não encontrado', 'warning');
 			});
 	}
 
 	async function handleCancel(event) {
 		event.preventDefault();
-		setState("");
-		setLogin("");
-		setPassword("");
-		setNameUser("");
-		setEmail("");
-		setBirthDate("");
-		setTypeUsersId("");
-		setPostCode("");
-		setStreet("");
-		setnumber("");
-		setCity("");
-		setState("");
-		setDistrict("");
-		setCountry("");
-		setDddTel("");
-		setDddCel("");
-		setTelNumber("");
-		setCelNumber("");
-		setCpf("");
-		setCnpj("");
-		setErrorLogin("");
+		setState('');
+		setLogin('');
+		setPassword('');
+		setNameUser('');
+		setEmail('');
+		setBirthDate('');
+		setTypeUsersId('');
+		setPostCode('');
+		setStreet('');
+		setnumber('');
+		setCity('');
+		setState('');
+		setDistrict('');
+		setCountry('');
+		setDddTel('');
+		setDddCel('');
+		setTelNumber('');
+		setCelNumber('');
+		setCpf('');
+		setCnpj('');
+		setErrorLogin('');
 	}
 
 	return (
@@ -200,7 +200,7 @@ export default function Index() {
 
 									<div className="row justify-content-start">
 										<div className="form-group col-12 col-md-6 col-lg-6">
-											{typeUsersId === "2" && (
+											{typeUsersId === '2' && (
 												<>
 													<label htmlFor="cpf">
 														<b> CNPJ </b>
@@ -224,7 +224,7 @@ export default function Index() {
 												</>
 											)}
 
-											{typeUsersId === "3" && (
+											{typeUsersId === '3' && (
 												<>
 													<label htmlFor="cpf">
 														<b> CPF </b>
