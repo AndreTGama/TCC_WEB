@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Login from '../pages/Login';
 import Routes from './data/Routes';
-import Page404 from '../pages/404/NotFound';
+import Page404 from '../pages/404';
 
 export default function LoginRoutes() {
 	return (

@@ -1,33 +1,38 @@
-import React from 'react';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
-import { isAuthenticated } from './services/auth';
+/* eslint-disable no-else-return */
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import parseJwt from './helpers/parseJwt';
+import { UserTypeActions } from './redux/ducks/userTypeReducer';
+import Navigation from './routes/Navigation';
+import LoginRoutes from './routes/LoginRoutes';
 
-import Login from './pages/Login';
-import Register from './pages/Login/Register'
+export default function () {
+	const userType = useSelector((state) => state.userType);
+	const dispatch = useDispatch();
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route
-    {...rest}
-    render={props =>
-      isAuthenticated() ? (
-        <Component {...props} />
-      ) : (
-        <Redirect to={{ pathname: '/', state: { from: props.location } }} />
-      )
-    }
-  />
-);
+	useEffect(() => {
+		console.log(1);
+		const token = localStorage.getItem('@token');
+		const id = parseJwt(token) ? parseJwt(token).tipo_usuario : null;
+		dispatch(UserTypeActions.updateUserTypeIds(id));
+		if (id) {
+			dispatch(UserTypeActions.updateActualTypeId(id));
+			if (!localStorage.getItem('@actualTypeId'))
+				localStorage.setItem('@actualTypeId', id);
+		} else if (
+			localStorage.getItem('@actualTypeId') &&
+			localStorage.getItem('@actualTypeId')
+		)
+			dispatch(
+				UserTypeActions.updateActualTypeId(
+					+localStorage.getItem('@actualTypeId')
+				)
+			);
+	}, []);
 
-const Routes = () => (
-  <BrowserRouter>
-    <Switch>
-      <Route exact path='/' component={Login} />
-	  <Route exact path='/registro' component={Register} />
-      <Route path='/signup' component={() => <h1>SignUp</h1>} />
-      <PrivateRoute path='/app' component={() => <h1>App</h1>} />
-      <Route path='*' component={() => <h1>Page not found</h1>} />
-    </Switch>
-  </BrowserRouter>
-);
-
-export default Routes;
+	if (userType.actualType !== null)
+		return (
+			<Navigation userTypeId={userType.actualType || userType.types} />
+		);
+	else return <LoginRoutes />;
+}

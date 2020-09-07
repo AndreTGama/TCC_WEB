@@ -112,6 +112,7 @@ export default function Index() {
 		setCpf('');
 		setCnpj('');
 		setErrorLogin('');
+		history.push('/');
 	}
 
 	return (
