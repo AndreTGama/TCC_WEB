@@ -1,9 +1,11 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-
 import RouteByPermission from './data/RouteByPermission';
 import Routes from './data/Routes';
-import Page404 from '../pages/404/NotFound';
+import Page404 from '../pages/404';
+import AdministratorRoute from './AdministratorRoute';
+import ClientRoute from './ClientRoute';
+import CompanyRoute from './CompanyRoute';
 
 export default function Navigation({ userTypeId }) {
 	function buildRoutes(path, render) {
@@ -28,4 +30,12 @@ export default function Navigation({ userTypeId }) {
 		);
 	}
 
+	const routes = [
+		null,
+		buildRoutes(RouteByPermission[1], AdministratorRoute),
+		buildRoutes(RouteByPermission[2], CompanyRoute),
+		buildRoutes(RouteByPermission[3], ClientRoute),
+	];
+
+	return routes[userTypeId];
 }

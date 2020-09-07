@@ -77,12 +77,15 @@ export default function Index() {
 		cep(postCode)
 			.then((dataPostCode) => {
 				console.log(dataPostCode.neighborhood);
-				if (dataPostCode.neighborhood ===''|| dataPostCode.street ===''|| dataPostCode.district ===''|| dataPostCode.state ===''|| dataPostCode.city === '')
-				{
-
+				if (
+					dataPostCode.neighborhood === '' ||
+					dataPostCode.street === '' ||
+					dataPostCode.district === '' ||
+					dataPostCode.state === '' ||
+					dataPostCode.city === ''
+				) {
 					setCepNotFound(false);
-				}
-				else{
+				} else {
 					setCepNotFound(true);
 				}
 
@@ -90,7 +93,6 @@ export default function Index() {
 				setState(dataPostCode.state);
 				setStreet(dataPostCode.street);
 				setCity(dataPostCode.city);
-
 			})
 			.catch((error) => {
 				console.log(`error: ${error}`);
@@ -123,8 +125,7 @@ export default function Index() {
 		setCnpj('');
 		setErrorLogin('');
 
-		history.push('/')
-
+		history.push('/');
 	}
 
 	return (
@@ -280,10 +281,7 @@ export default function Index() {
 												className="form-control"
 												value={login}
 												onChange={(event) =>
-													setLogin(
-														event.target
-															 .value
-													)
+													setLogin(event.target.value)
 												}
 												required
 											/>
@@ -302,7 +300,9 @@ export default function Index() {
 												className="form-control"
 												value={password}
 												onChange={(event) =>
-													setPassword(event.target.value)
+													setPassword(
+														event.target.value
+													)
 												}
 												required
 											/>

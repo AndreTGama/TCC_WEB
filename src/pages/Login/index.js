@@ -1,46 +1,62 @@
-import React, { useState } from "react";
-import { useHistory, Link } from "react-router-dom";
-import api from "../../services/api";
-import "./style.css";
-import { UserTypeActions } from "../../redux/ducks/userTypeReducer";
-import { useDispatch } from "react-redux";
-import parseJwt from "../../helpers/parseJwt";
+import React, { useState } from 'react';
+import { useHistory, Link } from 'react-router-dom';
+import api from '../../services/api';
+import './style.css';
+import { UserTypeActions } from '../../redux/ducks/userTypeReducer';
+import { useDispatch } from 'react-redux';
+import parseJwt from '../../helpers/parseJwt';
+import Routes from '../../routes/data/Routes';
+import RouteByPermission from '../../routes/data/RouteByPermission';
 
 export default function Login() {
 	const dispatch = useDispatch();
 	const history = useHistory();
 
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
-	const [errorLogin, setErrorLogin] = useState("");
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+	const [errorLogin, setErrorLogin] = useState('');
 	const [disableButton, setDisableButton] = useState(false);
-	const [buttonLogin, setButtonLogin] = useState("Entrar");
+	const [buttonLogin, setButtonLogin] = useState('Entrar');
 
-	function handleLogin(event) {
-		setButtonLogin("Carregando...");
+	 function handleLogin(event) {
+		setButtonLogin('Carregando...');
 		setDisableButton(true);
 		event.preventDefault();
-		setErrorLogin("");
+		setErrorLogin('');
 		(async function () {
-			const response = await api.post("/login", {
+			const response = await api.post('/login', {
 				login: email,
 				password: password,
 			});
 
 			if (response.data.error === false) {
+				localStorage.setItem('@token', response.data.data);
 				const tokenUsuario = parseJwt(response.data.data);
-				console.log(tokenUsuario);
 				dispatch(
 					UserTypeActions.updateUserTypeIds(tokenUsuario.tipo_usuario)
 				);
-				localStorage.setItem("@token", response.data.data);
-
-				history.push("/usuario_admin");
+				console.log(tokenUsuario.tipo_usuario);
+				if (tokenUsuario.tipo_usuario !== 0) {
+					localStorage.setItem(
+						'@actualTypeId',
+						tokenUsuario.tipo_usuario
+					);
+					dispatch(
+						UserTypeActions.updateActualTypeId(
+							tokenUsuario.tipo_usuario
+						)
+					);
+					history.push(
+						Routes.LOGGED_ROUTES(
+							RouteByPermission[tokenUsuario.tipo_usuario]
+						).HOME
+					);
+				}
 			} else {
 				alert(`${response.data.message}`);
 				setErrorLogin(response.data.message);
 			}
-			setButtonLogin("Entrar");
+			setButtonLogin('Entrar');
 			setDisableButton(false);
 		})();
 	}
@@ -97,7 +113,6 @@ export default function Login() {
 									<div className="row justify-content-center">
 										<div className="form-group col-10">
 											<span className="errorLogin">
-
 												{errorLogin}
 											</span>
 										</div>
@@ -110,7 +125,6 @@ export default function Login() {
 												className="btn btn-primary btn-block"
 												id="loginBtn"
 											>
-
 												{buttonLogin}
 											</button>
 										</div>
@@ -118,7 +132,7 @@ export default function Login() {
 									<div className="row justify-content-center text-center">
 										<div className="col-10 form-group">
 											<Link
-												to={"/Esqueceusenha"}
+												to={'/esqueceu-senha'}
 												id="forgotpassword"
 											>
 												Esqueceu a Senha ?
@@ -128,7 +142,7 @@ export default function Login() {
 									<div className="row justify-content-center text-center">
 										<div className="col-10 form-group">
 											<Link
-												to={"/registro"}
+												to={'/registro'}
 												id="forgotpassword"
 											>
 												Cadastrar - se

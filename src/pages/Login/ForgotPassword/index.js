@@ -1,49 +1,16 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { FaSearch } from 'react-icons/fa';
-import InputMask from 'react-input-mask';
-import cep from 'cep-promise';
-import api from '../../../services/api';
-import './style.css';
 
-export default function Login() {
-	const dispatch = useDispatch();
-	const history = useHistory();
+export default function Index(){
 
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
-	const [errorLogin, setErrorLogin] = useState("");
-	const [disableButton, setDisableButton] = useState(false);
-	const [buttonLogin, setButtonLogin] = useState("Entrar");
+	const [login,setLogin] = useState('');
 
-	function handleLogin(event) {
-		setButtonLogin("Carregando...");
-		setDisableButton(true);
+	async function handleSubmit(event){
+
 		event.preventDefault();
-		setErrorLogin("");
-		(async function () {
-			const response = await api.post("/login", {
-				login: email,
-				password: password,
-			});
+		console.log(login);
 
-			if (response.data.error === false) {
-				const tokenUsuario = parseJwt(response.data.data);
-				console.log(tokenUsuario);
-				dispatch(
-					UserTypeActions.updateUserTypeIds(tokenUsuario.tipo_usuario)
-				);
-				localStorage.setItem("@token", response.data.data);
-
-				history.push("/usuario_admin");
-			} else {
-				alert(`${response.data.message}`);
-				setErrorLogin(response.data.message);
-			}
-			setButtonLogin("Entrar");
-			setDisableButton(false);
-		})();
 	}
+
 
 	return (
 		<section className="background_page_form">
@@ -54,85 +21,36 @@ export default function Login() {
 							<div className="card-body">
 								<form
 									className="login_page_form"
-									onSubmit={handleLogin}
+									onSubmit={handleSubmit}
 								>
 									<div className="row justify-content-center text-center">
 										<div className="form-group col-10">
 											<label htmlFor="loginEmail">
-												<b> Login </b>
+												<b> Email </b>
 											</label>
 											<input
 												type="text"
 												name="loginEmail"
 												id="loginEmail"
-												placeholder="Digite seu login"
+												placeholder="Digite seu email"
 												className="form-control"
+												value={login}
 												onChange={(event) =>
-													setEmail(event.target.value)
+													setLogin(event.target.value)
 												}
 												required
 											/>
-										</div>
-									</div>
-									<div className="row justify-content-center text-center">
-										<div className="form-group col-10">
-											<label htmlFor="passwordLogin">
-												<b> Senha </b>
-											</label>
-											<input
-												type="password"
-												name="passwordLogin"
-												id="passwordLogin"
-												placeholder="Digite a sua senha"
-												className="form-control"
-												onChange={(event) =>
-													setPassword(
-														event.target.value
-													)
-												}
-												required
-											/>
-										</div>
-									</div>
-									<div className="row justify-content-center">
-										<div className="form-group col-10">
-											<span className="errorLogin">
-
-												{errorLogin}
-											</span>
 										</div>
 									</div>
 									<div className="row justify-content-center text-center">
 										<div className="col-10 form-group">
 											<button
 												type="submit"
-												disabled={disableButton}
 												className="btn btn-primary btn-block"
 												id="loginBtn"
 											>
-
-												{buttonLogin}
+												Esqueceu Senha
 											</button>
-										</div>
-									</div>
-									<div className="row justify-content-center text-center">
-										<div className="col-10 form-group">
-											<Link
-												to={"/Esqueceusenha"}
-												id="forgotpassword"
-											>
-												Esqueceu a Senha ?
-											</Link>
-										</div>
-									</div>
-									<div className="row justify-content-center text-center">
-										<div className="col-10 form-group">
-											<Link
-												to={"/registro"}
-												id="forgotpassword"
-											>
-												Cadastrar - se
-											</Link>
 										</div>
 									</div>
 								</form>
