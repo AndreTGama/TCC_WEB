@@ -76,11 +76,21 @@ export default function Index() {
 		e.preventDefault();
 		cep(postCode)
 			.then((dataPostCode) => {
+				console.log(dataPostCode.neighborhood);
+				if (dataPostCode.neighborhood ===''|| dataPostCode.street ===''|| dataPostCode.district ===''|| dataPostCode.state ===''|| dataPostCode.city === '')
+				{
+
+					setCepNotFound(false);
+				}
+				else{
+					setCepNotFound(true);
+				}
+
 				setDistrict(dataPostCode.neighborhood);
 				setState(dataPostCode.state);
 				setStreet(dataPostCode.street);
 				setCity(dataPostCode.city);
-				setCepNotFound(true);
+
 			})
 			.catch((error) => {
 				console.log(`error: ${error}`);
@@ -112,7 +122,9 @@ export default function Index() {
 		setCpf('');
 		setCnpj('');
 		setErrorLogin('');
-		history.push('/');
+
+		history.push('/')
+
 	}
 
 	return (
@@ -138,6 +150,7 @@ export default function Index() {
 												id="name"
 												placeholder="Digite seu Nome Completo"
 												className="form-control"
+												value={nameUser}
 												onChange={(event) =>
 													setNameUser(
 														event.target.value
@@ -159,6 +172,7 @@ export default function Index() {
 												id="DateBirth"
 												placeholder="DD/MM/AAAA"
 												className="form-control"
+												value={birthDate}
 												onChange={(event) =>
 													setBirthDate(
 														event.target.value
@@ -178,6 +192,7 @@ export default function Index() {
 											<select
 												required
 												className="form-control"
+												value={typeUsersId}
 												onChange={(event) =>
 													setTypeUsersId(
 														event.target.value
@@ -263,8 +278,12 @@ export default function Index() {
 												id="Login"
 												placeholder="Digite seu login"
 												className="form-control"
+												value={login}
 												onChange={(event) =>
-													setLogin(event.target.value)
+													setLogin(
+														event.target
+															 .value
+													)
 												}
 												required
 											/>
@@ -281,10 +300,9 @@ export default function Index() {
 												id="password"
 												placeholder="Senha"
 												className="form-control"
+												value={password}
 												onChange={(event) =>
-													setPassword(
-														event.target.value
-													)
+													setPassword(event.target.value)
 												}
 												required
 											/>
@@ -556,7 +574,7 @@ export default function Index() {
 												name="lblUFCidade"
 												id="lblUFCidade"
 												className="form-control"
-												placeholder="Nome do Paíd"
+												placeholder="Nome do País"
 												value={country}
 												onChange={(event) =>
 													setCountry(
