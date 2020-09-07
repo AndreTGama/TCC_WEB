@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { useHistory, Link } from "react-router-dom";
-import api from "../../services/api";
-import "./style.css";
-import { UserTypeActions } from "../../redux/ducks/userTypeReducer";
-import { useDispatch } from "react-redux";
-import parseJwt from "../../helpers/parseJwt";
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { FaSearch } from 'react-icons/fa';
+import InputMask from 'react-input-mask';
+import cep from 'cep-promise';
+import api from '../../../services/api';
+import './style.css';
 
 export default function Login() {
 	const dispatch = useDispatch();
