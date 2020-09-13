@@ -52,11 +52,6 @@ export default function Login() {
 						).HOME
 					);
 				}
-				history.push(
-					Routes.LOGGED_ROUTES(
-						RouteByPermission[tokenUsuario.tipo_usuario]
-					).HOME
-				);
 			} else {
 				alert(`${response.data.message}`);
 				setErrorLogin(response.data.message);
