@@ -18,7 +18,7 @@ export default function Login() {
 	const [disableButton, setDisableButton] = useState(false);
 	const [buttonLogin, setButtonLogin] = useState('Entrar');
 
-	 function handleLogin(event) {
+	function handleLogin(event) {
 		setButtonLogin('Carregando...');
 		setDisableButton(true);
 		event.preventDefault();
