@@ -5,7 +5,6 @@ import parseJwt from '../helpers/parseJwt';
 const PrivateRouter = ({ userTypes, component: Component, ...rest }) => {
 	const token = localStorage.getItem('@token');
 	const tokenUsuario = parseJwt(token);
-	console.log(token);
 	const isAuthenticated = tokenUsuario !== null;
 
 	return (

@@ -11,7 +11,11 @@ export default function LoginRoutes() {
 		<>
 			<Switch>
 				<Route exact path={Routes.LOGIN} component={Login} />
-				<Route exact path={Routes.FORGOT_PASSWORD} component={ForgotPassword} />
+				<Route
+					exact
+					path={Routes.FORGOT_PASSWORD}
+					component={ForgotPassword}
+				/>
 				<Route exact path={Routes.CREATE_USER} component={Register} />
 				<Route path="*" component={Page404} />
 			</Switch>
