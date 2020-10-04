@@ -1,31 +1,13 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import api from '../../../services/api';
 
 export default function Index(){
 
-	const [email,setEmail] = useState('');
-	const history = useHistory();
+	const [login,setLogin] = useState('');
 
 	async function handleSubmit(event){
 
 		event.preventDefault();
-		const dataPost ={email};
-		const {data} = await api.post('/user/forgot-password',dataPost);
-		if (data.error === false)
-		{
-			alert(data.message);
-		} else {
-			alert(data.message);
-		}
-
-
-	}
-
-	async function handleCancel(event){
-
-		event.preventDefault();
-		history.push('/');
+		console.log(login);
 
 	}
 
@@ -44,17 +26,17 @@ export default function Index(){
 									<div className="row justify-content-center text-center">
 										<div className="form-group col-10">
 											<label htmlFor="loginEmail">
-												<b> Email </b>
+												<b> Código de Verificação </b>
 											</label>
 											<input
 												type="text"
 												name="loginEmail"
 												id="loginEmail"
-												placeholder="Digite seu email"
+												placeholder="Digite seu código de verificação"
 												className="form-control"
-												value={email}
+												value={login}
 												onChange={(event) =>
-													setEmail(event.target.value)
+													setLogin(event.target.value)
 												}
 												required
 											/>
@@ -67,7 +49,7 @@ export default function Index(){
 												className="btn btn-primary btn-block"
 												id="loginBtn"
 											>
-												Esqueceu Senha
+												Enviar Código
 											</button>
 										</div>
 									</div>
@@ -78,7 +60,7 @@ export default function Index(){
 								<div className="row justify-content-center text-center">
 										<div className="col-10 form-group">
 											<button
-												type="button" onClick={handleCancel}
+												type="submit"
 												className="btn btn-primary btn-block"
 												id="CancelBtn"
 											>	Cancelar
