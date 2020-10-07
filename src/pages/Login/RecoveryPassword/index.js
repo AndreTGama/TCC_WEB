@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
+import api from '../../../services/api';
 
 export default function Index(){
 
-	const [login,setLogin] = useState('');
+
+	const [code, setCode] = useState('');
 
 	async function handleSubmit(event){
 
 		event.preventDefault();
-		console.log(login);
+		const response = await api.post('/user/verifyCode', {
+			code
+		});
+
 
 	}
 
@@ -34,9 +39,9 @@ export default function Index(){
 												id="loginEmail"
 												placeholder="Digite seu código de verificação"
 												className="form-control"
-												value={login}
+												value={code}
 												onChange={(event) =>
-													setLogin(event.target.value)
+													setCode(event.target.value)
 												}
 												required
 											/>
