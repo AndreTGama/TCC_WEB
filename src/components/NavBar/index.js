@@ -6,11 +6,13 @@ import { SideBarData } from './SideBarData';
 import { IconContext } from 'react-icons';
 import ButtonLogout from './ButtonLogout';
 import './style.css';
+import { useSelector } from 'react-redux';
 
 
 export default function SideBar() {
 	const [sideBarActive, setSideBarActive] = useState(true);
-
+	const userActualType = useSelector(state => state);
+	console.log(userActualType);
 	const showSideBar = () => setSideBarActive(!sideBarActive);
 
 	return (

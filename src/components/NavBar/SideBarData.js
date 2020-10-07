@@ -1,8 +1,6 @@
 import React from 'react';
 import { AiFillHome } from 'react-icons/ai';
 import { IoIosCalendar } from "react-icons/io";
-import { ImExit } from "react-icons/im";
-
 
 export const SideBarData = [
 	{

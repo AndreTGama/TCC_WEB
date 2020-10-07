@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import parseJwt from '../../helpers/parseJwt';
 import Routes from '../../routes/data/Routes';
 import RouteByPermission from '../../routes/data/RouteByPermission';
+import UserFunctionsReducer, { UserFunctions } from '../../redux/ducks/UserFunctionsReducer';
 
 export default function Login() {
 	const dispatch = useDispatch();
@@ -33,22 +34,24 @@ export default function Login() {
 				localStorage.setItem('@token', response.data.data);
 				const tokenUsuario = parseJwt(response.data.data);
 				dispatch(
-					UserTypeActions.updateUserTypeIds(tokenUsuario.tipo_usuario)
+					UserTypeActions.updateUserTypeIds(tokenUsuario.type_user)
 				);
-				console.log(tokenUsuario.tipo_usuario);
-				if (tokenUsuario.tipo_usuario !== 0) {
+				dispatch(
+					UserFunctions.updateActualUserFunctions(tokenUsuario.functions)
+				);
+				if (tokenUsuario.type_user !== 0) {
 					localStorage.setItem(
 						'@actualTypeId',
-						tokenUsuario.tipo_usuario
+						tokenUsuario.type_user
 					);
 					dispatch(
 						UserTypeActions.updateActualTypeId(
-							tokenUsuario.tipo_usuario
+							tokenUsuario.type_user
 						)
 					);
 					history.push(
 						Routes.LOGGED_ROUTES(
-							RouteByPermission[tokenUsuario.tipo_usuario]
+							RouteByPermission[tokenUsuario.type_user]
 						).HOME
 					);
 				}
