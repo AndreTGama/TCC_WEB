@@ -13,7 +13,7 @@ export default function Menu() {
 	function logoutUser(event) {
 		event.preventDefault();
 		(async function () {
-			await api.post('/logout');
+			await api.get('/logout');
 			dispatch(UserTypeActions.updateActualTypeId(null));
 			dispatch(UserTypeActions.updateUserTypeIds([]));
 			history.push(Routes.LOGIN);

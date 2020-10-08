@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import parseJwt from '../../helpers/parseJwt';
 import Routes from '../../routes/data/Routes';
 import RouteByPermission from '../../routes/data/RouteByPermission';
-import UserFunctionsReducer, { UserFunctions } from '../../redux/ducks/UserFunctionsReducer';
+import { UserFunctions } from '../../redux/ducks/UserFunctionsReducer';
 
 export default function Login() {
 	const dispatch = useDispatch();

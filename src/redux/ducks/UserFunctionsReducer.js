@@ -10,8 +10,7 @@ const ActionFunctions = {
 	Reducer
 */
 const initialState = {
-	functions: [],
-	actualType: null,
+	functions: null,
 };
 
 export default function(state = initialState, action) {
@@ -24,7 +23,7 @@ export default function(state = initialState, action) {
 		case ActionFunctions.UPDATE_ACTUAL_USER_FUNCTIONS_IDS:
 			return {
 				...state,
-				actualType: action.payload,
+				functions: action.payload,
 			};
 		default:
 			return state;
@@ -35,22 +34,6 @@ export default function(state = initialState, action) {
 	Actions
 */
 
-export const UserTypeActions = {
-	/**
-	 * @params {number[]} ids
-	 */
-	updateUserTypeIds: ids => ({
-		type: ActionFunctions.UPDATE_USER_FUNCTIONS_IDS,
-		payload: ids,
-	}),
-	/**
-	 * @params {number} id
-	 */
-	updateActualTypeId: id => ({
-		type: ActionFunctions.UPDATE_ACTUAL_USER_FUNCTIONS_IDS,
-		payload: id,
-	}),
-};
 
 export const UserFunctions = {
 	/**
