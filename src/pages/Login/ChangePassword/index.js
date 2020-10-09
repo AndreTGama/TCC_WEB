@@ -1,26 +1,17 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import Routes from '../../../routes/data/Routes';
 import api from '../../../services/api';
 
 export default function Index(){
 
-	const history = useHistory();
+
 	const [code, setCode] = useState('');
 
 	async function handleSubmit(event){
 
 		event.preventDefault();
-		const response = await api.post('/user/verify-code', {
+		const response = await api.post('/user/verifyCode', {
 			code
 		});
-		console.log(response.data.error);
-		if(response.data.error === true) alert(response.data.message);
-		else {
-			localStorage.setItem('@idusuário',response.data.data);
-			history.push(Routes.CHANGE_PASSWORD);
-
-		}
 
 
 	}
@@ -40,13 +31,32 @@ export default function Index(){
 									<div className="row justify-content-center text-center">
 										<div className="form-group col-10">
 											<label htmlFor="loginEmail">
-												<b> Código de Verificação </b>
+												<b> Digite sua nova senha </b>
 											</label>
 											<input
 												type="text"
 												name="loginEmail"
 												id="loginEmail"
-												placeholder="Digite seu código de verificação"
+												placeholder="Digite sua nova senha"
+												className="form-control"
+												value={code}
+												onChange={(event) =>
+													setCode(event.target.value)
+												}
+												required
+											/>
+										</div>
+									</div>
+									<div className="row justify-content-center text-center">
+										<div className="form-group col-10">
+											<label htmlFor="loginEmail">
+												<b> Confirme sua nova senha </b>
+											</label>
+											<input
+												type="text"
+												name="loginEmail"
+												id="loginEmail"
+												placeholder="Confirme sua nova senha"
 												className="form-control"
 												value={code}
 												onChange={(event) =>
@@ -63,7 +73,7 @@ export default function Index(){
 												className="btn btn-primary btn-block"
 												id="loginBtn"
 											>
-												Enviar Código
+												Trocar a senha
 											</button>
 										</div>
 									</div>
@@ -71,16 +81,7 @@ export default function Index(){
 								<div className="row justify-content-center text-center">
 									<div className="col-10 form-group"> </div>
 								</div>
-								<div className="row justify-content-center text-center">
-										<div className="col-10 form-group">
-											<button
-												type="submit"
-												className="btn btn-primary btn-block"
-												id="CancelBtn"
-											>	Cancelar
-											</button>
-										</div>
-									</div>
+
 							</div>
 						</div>
 					</div>
