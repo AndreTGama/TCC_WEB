@@ -1,18 +1,40 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import Routes from '../../../routes/data/Routes';
 import api from '../../../services/api';
 
 export default function Index(){
 
+	const history = useHistory();
+	const [password, setPassword] = useState('');
+	const [confirmedPassword, setConfirmedPassword] = useState('');
 
-	const [code, setCode] = useState('');
+	useEffect(()=>{
+		if(!localStorage.getItem('@idusuario')){
+			alert('não existe');
+			history.push('/');
+		}
+	},[])
+
 
 	async function handleSubmit(event){
 
 		event.preventDefault();
-		const response = await api.post('/user/verifyCode', {
-			code
-		});
 
+		if(password === confirmedPassword){
+			const data = {
+				password:password,
+				confirmedPassword:confirmedPassword,
+				idUser:localStorage.getItem('@idusuario'),
+			}
+			const response = await api.post('/user/change-password', data);
+			if (response.data.error === true){
+				alert(response.data.message);
+				history.push(Routes.LOGIN);
+			}
+			else alert(response.data.message);
+
+		}else alert('As senhas não são iguais');
 
 	}
 
@@ -39,9 +61,9 @@ export default function Index(){
 												id="loginEmail"
 												placeholder="Digite sua nova senha"
 												className="form-control"
-												value={code}
+												value={password}
 												onChange={(event) =>
-													setCode(event.target.value)
+													setPassword(event.target.value)
 												}
 												required
 											/>
@@ -58,9 +80,9 @@ export default function Index(){
 												id="loginEmail"
 												placeholder="Confirme sua nova senha"
 												className="form-control"
-												value={code}
+												value={confirmedPassword}
 												onChange={(event) =>
-													setCode(event.target.value)
+													setConfirmedPassword(event.target.value)
 												}
 												required
 											/>

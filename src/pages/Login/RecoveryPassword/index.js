@@ -17,7 +17,7 @@ export default function Index(){
 		console.log(response.data.error);
 		if(response.data.error === true) alert(response.data.message);
 		else {
-			localStorage.setItem('@idusuário',response.data.data);
+			localStorage.setItem('@idusuario',response.data.data);
 			history.push(Routes.CHANGE_PASSWORD);
 
 		}
