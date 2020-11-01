@@ -14,10 +14,6 @@ export default function () {
 	useEffect(() => {
 		const token = localStorage.getItem('@token');
 		const jwt = parseJwt(token) ? parseJwt(token) : null;
-		dispatch(UserTypeActions.updateUserTypeIds(jwt.type_user));
-		dispatch(
-			UserFunctions.updateActualUserFunctions(jwt.functions)
-		);
 		if (jwt) {
 			dispatch(UserTypeActions.updateActualTypeId(jwt.type_user));
 		} else if (token)

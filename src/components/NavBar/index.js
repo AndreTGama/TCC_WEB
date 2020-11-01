@@ -72,7 +72,7 @@ export default function SideBar() {
 	return (
 		<>
 			<IconContext.Provider value={{ color: '#fff' }}>
-				<div className="navbar">
+				<div className="navbar fixed-top">
 					<Link to="#" className="menu-bars">
 						<FaBars onClick={showSideBar} />
 					</Link>
