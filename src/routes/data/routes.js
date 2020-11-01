@@ -7,5 +7,6 @@ export default {
 	LOGGED_ROUTES: (baseUrl = null) => ({
 		INDEX: '/',
 		HOME: baseUrl,
+		SERVICES: `${baseUrl}/servico`,
 	}),
 };

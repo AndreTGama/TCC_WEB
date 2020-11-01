@@ -25,7 +25,6 @@ export default function SelectsTypeServices({ setIdTypeService, valueSelect, dis
 		<>
 			<select
 				disabled={disabled}
-				required="required"
 				className="form-control"
 				name="IdTipoServico"
 				id="IdTipoServico"
