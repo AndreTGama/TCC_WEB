@@ -65,7 +65,7 @@ export default function Login() {
 	}
 
 	return (
-		<section className="background_page_login">
+		<section id="wrapper">
 			<div className="container">
 				<div className="row justify-content-center">
 					<div className="col-12 col-lg-7 col-md-9">

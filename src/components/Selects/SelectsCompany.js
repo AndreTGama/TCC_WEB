@@ -2,23 +2,23 @@ import React, { useEffect, useState } from 'react';
 import api from '../../services/api';
 
 // eslint-disable-next-line react/prop-types
-export default function SelectCorRaca({ setIdDay, valueSelect, disabled }) {
-	const [daysWeeks, setDaysWeeks] = useState([]);
+export default function SelectsCompany({ setIdCompany, valueSelect, disabled }) {
+	const [Companies, setCompanies] = useState([]);
 
 	useEffect(() => {
 		(async function() {
-			const response = await api.get('/selects/days-weeks');
-			setDaysWeeks(response.data.data);
+			const response = await api.get('/selects/type-services');
+			setCompanies(response.data.data);
 		})();
 	}, []);
 
 	// eslint-disable-next-line no-shadow
 	async function handleSelect(id) {
-		setIdDay(id);
+		setIdCompany(id);
 	}
-	const daysWeeksList = daysWeeks.map(cor => (
-		<option value={cor.id_cor_raca} key={cor.id_cor_raca}>
-			{cor.desc_cor_raca}
+	const CompaniesList = Companies.map(c => (
+		<option value={c.id_user} key={c.id_user}>
+			{c.name_user}
 		</option>
 	));
 	return (
@@ -27,13 +27,13 @@ export default function SelectCorRaca({ setIdDay, valueSelect, disabled }) {
 				disabled={disabled}
 				required="required"
 				className="form-control"
-				name="lblIdCorRaca"
-				id="lblIdCorRaca"
+				name="idCompanhia"
+				id="idCompanhia"
 				value={valueSelect}
 				onChange={event => handleSelect(event.target.value)}
 			>
-				<option value="">Escolha um Dia</option>
-				{daysWeeksList}
+				<option value="">Escolha uma companhia</option>
+				{CompaniesList}
 			</select>
 		</>
 	);
