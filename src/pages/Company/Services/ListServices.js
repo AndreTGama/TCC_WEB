@@ -93,8 +93,8 @@ export default function FormServices(){
 								<tr>
 								<th scope="col">#</th>
 								<th scope="col">Clientes</th>
-								<th scope="col">Last</th>
-								<th scope="col">Handle</th>
+								<th scope="col">Serviços</th>
+								<th scope="col">Horário</th>
 								</tr>
 							</thead>
 							<tbody>

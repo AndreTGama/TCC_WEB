@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import api from '../../services/api';
 
 // eslint-disable-next-line react/prop-types
-export default function SelectsTypeServices({ setIdTypeService, valueSelect, disabled }) {
+export default function SelectsTypeServices({ setIdTypeService, valueSelect, disabled, required}) {
 	const [TypeServices, setTypeServices] = useState([]);
 
 	useEffect(() => {
@@ -28,6 +28,7 @@ export default function SelectsTypeServices({ setIdTypeService, valueSelect, dis
 				className="form-control"
 				name="IdTipoServico"
 				id="IdTipoServico"
+				required={required}
 				value={valueSelect}
 				onChange={event => handleSelect(event.target.value)}
 			>
