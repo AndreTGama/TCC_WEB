@@ -17,7 +17,7 @@ export default function SideBar() {
 
 	const sideBar = SideBarData.map(
 		({ id, title, path, icon, cName, dropDown, index }) => (
-			<ul  key={index} className={cName}>
+			<ul key={index} className={cName}>
 				<li className="nav-item">
 					{dropDown ? (
 						<a
@@ -53,9 +53,7 @@ export default function SideBar() {
 											className="submenusidebar"
 											key={subItem.id}
 										>
-											<Link
-												to={subItem.path}
-											>
+											<Link to={subItem.path}>
 												{subItem.title}
 											</Link>
 										</li>
