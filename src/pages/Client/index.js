@@ -62,6 +62,7 @@ export default function Index() {
 
 	return (
 		<>
+			<NavBar />
 			<main>
 				<section className="background_page_form">
 					<div className="container">
@@ -187,7 +188,9 @@ export default function Index() {
 															<p>Empresa</p>
 														</div>
 														<div className="mt-3 name-company-service">
-															<p>{item.name_user}</p>
+															<p>
+																{item.name_user}
+															</p>
 														</div>
 														<div className="mt-1 contact-company-service">
 															<p>
