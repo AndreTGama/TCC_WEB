@@ -7,8 +7,6 @@ import { IconContext } from 'react-icons';
 import ButtonLogout from './ButtonLogout';
 import './style.css';
 import { useSelector } from 'react-redux';
-import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
-import 'react-pro-sidebar/dist/css/styles.css';
 
 export default function SideBar() {
 	const [sideBarActive, setSideBarActive] = useState(true);

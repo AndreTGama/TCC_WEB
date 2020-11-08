@@ -3,6 +3,7 @@ import SelectsTypeServices from '../../components/Selects/SelectsTypeServices';
 import Loading from '../../components/Loading';
 import NavBar from '../../components/NavBar';
 import api from '../../services/api';
+import Calendar from '../../components/Calendar';
 import './style.css';
 
 export default function Index() {
@@ -255,6 +256,7 @@ export default function Index() {
 						</div>
 					</div>
 				</section>
+				<Calendar />
 			</main>
 		</>
 	);
