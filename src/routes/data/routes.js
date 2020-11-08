@@ -8,6 +8,7 @@ export default {
 		INDEX: '/',
 		HOME: baseUrl,
 		SERVICES: `${baseUrl}/servico`,
-		CREATE_SERVICES: `${baseUrl}/servico/novo`
+		CREATE_SERVICES: `${baseUrl}/servico/novo`,
+		PROFILE: `${baseUrl}/perfil`,
 	}),
 };
