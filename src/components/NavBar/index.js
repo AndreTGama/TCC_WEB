@@ -9,7 +9,7 @@ import './style.css';
 import { useSelector } from 'react-redux';
 
 export default function SideBar() {
-	const [sideBarActive, setSideBarActive] = useState(true);
+	const [sideBarActive, setSideBarActive] = useState(false);
 	const userActualType = useSelector(
 		(state) => state.UserFunctionsReducer.functions
 	);
@@ -18,55 +18,54 @@ export default function SideBar() {
 	const sideBar = SideBarData.map(
 		({ id, title, path, icon, cName, dropDown, index }) => (
 			<>
-					<li key={index} className={cName}>
-						{dropDown ? (
-							<a
-								data-toggle="collapse"
-								href={`#collaspse${path}`}
-								role="button"
-								id={path}
-								aria-expanded="false"
-								aria-controls={`collaspse${path}`}
-								className="nav-link sidebar-link text-light p-2"
-							>
-								<span className="mr-3 sidebar-icons">
-									{icon}
-								</span>
-								{title}
-							</a>
-						) : (
-							<Link
-								to={`${path}`}
-								className="nav-link sidebar-link text-light p-2"
-							>
-								<span className="mr-3 sidebar-icons">
-									{icon}
-								</span>
-								{title}
-							</Link>
-						)}
-						<div
-							className="collapse multi-collapse"
-							id={`collaspse${path}`}
+				<li key={index} className={cName}>
+					{dropDown ? (
+						<a
+							data-toggle="collapse"
+							href={`#collaspse${path}`}
+							role="button"
+							id={path}
+							aria-expanded="false"
+							aria-controls={`collaspse${path}`}
+							className="nav-link sidebar-link text-light p-2"
 						>
-							<div className="sidebar-item">
-								{Array.isArray(dropDown) ? (
-									<ul>
-										{dropDown.map((subItem) => (
-											<li
-												className="submenusidebar"
-												key={subItem.id}
+							<span className="mr-3 sidebar-icons">{icon}</span>
+							{title}
+						</a>
+					) : (
+						<Link
+							to={`${path}`}
+							className="nav-link sidebar-link text-light p-2"
+						>
+							<span className="mr-3 sidebar-icons">{icon}</span>
+							{title}
+						</Link>
+					)}
+					<div
+						className="collapse multi-collapse"
+						id={`collaspse${path}`}
+					>
+						<div className="sidebar-item">
+							{Array.isArray(dropDown) ? (
+								<ul>
+									{dropDown.map((subItem) => (
+										<li
+											className="submenusidebar"
+											key={subItem.id}
+										>
+											<Link
+												to={subItem.path}
+												className={subItem.cName}
 											>
-												<Link to={subItem.path} className={subItem.cName}>
-													{subItem.title}
-												</Link>
-											</li>
-										))}
-									</ul>
-								) : null}
-							</div>
+												{subItem.title}
+											</Link>
+										</li>
+									))}
+								</ul>
+							) : null}
 						</div>
-					</li>
+					</div>
+				</li>
 			</>
 		)
 	);

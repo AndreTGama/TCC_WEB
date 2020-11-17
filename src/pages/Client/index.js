@@ -5,9 +5,17 @@ import NavBar from '../../components/NavBar';
 import api from '../../services/api';
 import Calendar from '../../components/Calendar';
 import './style.css';
+import { useHistory } from 'react-router-dom';
+import Routes from '../../routes/data/Routes';
+import { useSelector } from 'react-redux';
+import parseJwt from '../../helpers/parseJwt';
+import RouteByPermission from '../../routes/data/RouteByPermission';
+import swal from 'sweetalert';
 
 export default function Index() {
+	const history = useHistory();
 	const [price, setPrice] = useState();
+	const [userIdLogado, setUserIdLogado] = useState(null);
 	const [time, setTime] = useState();
 	const [service, setService] = useState();
 	const [idTypesService, setIdTypesService] = useState();
@@ -46,13 +54,20 @@ export default function Index() {
 		);
 		if (data.error === false) setListServices(data.data);
 		else {
-			alert('Sem serviços');
+			swal({
+				title: 'Ops!',
+				text: data.message,
+				icon: 'warning',
+			});
 			setListServices([]);
 		}
 	}
 
 	async function HandleAceptService(idService) {
-		console.log(idService);
+		history.push(
+			Routes.LOGGED_ROUTES(RouteByPermission[userIdLogado]).ACCEPT +
+				`/${idService}`
+		);
 	}
 
 	useEffect(() => {
@@ -60,6 +75,12 @@ export default function Index() {
 		LoadService();
 		setIsLoading(false);
 	}, []);
+
+	useEffect(() => {
+		const token = localStorage.getItem('@token');
+		const tokenUsuario = parseJwt(token);
+		setUserIdLogado(tokenUsuario.sub);
+	}, [localStorage.getItem('@token')]);
 
 	return (
 		<>
@@ -191,7 +212,12 @@ export default function Index() {
 									) : (
 										<>
 											{listServices.map((item) => (
-												<div className="card-custom">
+												<div
+													className="card-custom"
+													key={
+														item.id_services_company
+													}
+												>
 													<div className="row">
 														<div className="col-12 col-md-4 col-lg-4">
 															<div className="card-body-left">
@@ -270,7 +296,7 @@ export default function Index() {
 																	class="btn btn-primary"
 																	onClick={() =>
 																		HandleAceptService(
-																			1
+																			item.id_services_company
 																		)
 																	}
 																>
