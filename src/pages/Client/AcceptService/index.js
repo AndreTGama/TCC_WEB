@@ -11,6 +11,7 @@ import Routes from '../../../routes/data/Routes';
 import RouteByPermission from '../../../routes/data/RouteByPermission';
 import parseJwt from '../../../helpers/parseJwt';
 import DatePicker from 'react-datepicker';
+import swal from 'sweetalert';
 
 export default function Index() {
 	const { idService } = useParams();
@@ -18,6 +19,7 @@ export default function Index() {
 	const [userIdLogado, setUserIdLogado] = useState(null);
 	const [date, setDate] = useState(moment().format('DD/MM/YYYY'));
 	const [hour, setHour] = useState('');
+	const [note, setNote] = useState('');
 	const [service, setService] = useState();
 	const [isLoading, setIsLoading] = useState(true);
 
@@ -40,10 +42,18 @@ export default function Index() {
 		const dataPost = {
 			day: date,
 			hour: hour,
+			note: note,
 			idServicesCompany: idService,
 		};
-		const { data } = api.post('/calendar/create', dataPost);
-		console.log(data);
+		const { data } = await api.post('/calendar/create', dataPost);
+		if (data.error === true)
+			swal({ icon: 'warning', title: 'Ops!', text: data.message });
+		else {
+			swal({ icon: 'success', text: data.message, title: 'Sucesso!' });
+			history.push(
+				Routes.LOGGED_ROUTES(RouteByPermission[userIdLogado]).CALENDAR
+			);
+		}
 	}
 
 	function handleCancel() {
@@ -165,6 +175,23 @@ export default function Index() {
 													</div>
 												</div>
 											</div>
+											<label
+												htmlFor="example-date-input"
+												className="col-form-label"
+											>
+												<b>Nota: </b>
+											</label>
+											<input
+												required
+												className="form-control"
+												placeholder="Nota"
+												type="text"
+												value={note}
+												id="example-time-input"
+												onChange={(event) =>
+													setNote(event.target.value)
+												}
+											/>
 										</div>
 										<div className="row">
 											<div className="col-12 col-md-6 col-lg-6">

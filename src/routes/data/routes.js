@@ -9,5 +9,9 @@ export default {
 		HOME: baseUrl,
 		ACCEPT: `${baseUrl}/aceitar`,
 		ACCEPT_SERVICE: `${baseUrl}/aceitar/:idService`,
+		SERVICES: `${baseUrl}/servico`,
+		CREATE_SERVICES: `${baseUrl}/servico/novo`,
+		PROFILE: `${baseUrl}/perfil`,
+		CALENDAR: `${baseUrl}/calendario`,
 	}),
 };

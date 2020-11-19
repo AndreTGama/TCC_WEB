@@ -34,6 +34,7 @@ export default function SelectsTypeServices({
 				className="form-control"
 				name="IdTipoServico"
 				id="IdTipoServico"
+				required={required}
 				value={valueSelect}
 				onChange={(event) => handleSelect(event.target.value)}
 			>
