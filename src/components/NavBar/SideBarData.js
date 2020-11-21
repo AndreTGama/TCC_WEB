@@ -2,12 +2,7 @@ import React from 'react';
 import { AiFillHome } from 'react-icons/ai';
 import { ImUserTie } from 'react-icons/im';
 import { BsBuilding, BsCalendar } from 'react-icons/bs';
-import Routes from '../../routes/data/Routes';
-import parseJwt from '../../helpers/parseJwt';
-import RouteByPermission from '../../routes/data/RouteByPermission';
 
-const token = localStorage.getItem('@token');
-const tokenUsuario = parseJwt(token);
 export const SideBarData = [
 	{
 		id: 1,
