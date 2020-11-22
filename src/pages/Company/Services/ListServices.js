@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import SelectsTypeServices from '../../../components/Selects/SelectsTypeServices';
+import Table from '../../../components/Table';
+import Routes from '../../../routes/data/Routes';
+import RouteByPermission from '../../../routes/data/RouteByPermission';
 import api from '../../../services/api';
+import { useSelector } from 'react-redux';
 
 export default function FormServices() {
 	const [ListServices, setListServices] = useState([]);
 	const [Price, setPrice] = useState('');
 	const [Time, setTime] = useState('');
 	const [Service, setService] = useState('');
+	const history = useHistory();
+	const userActualType = useSelector((state) => state.userType.actualType);
 	const [IdTypeService, setIdTypeService] = useState(null);
 
 	async function loadServices() {
@@ -25,6 +32,12 @@ export default function FormServices() {
 		} else {
 			setListServices(data.data);
 		}
+	}
+	function changePage() {
+		history.push(
+			Routes.LOGGED_ROUTES(
+			RouteByPermission[userActualType]
+		).CREATE_SERVICES);
 	}
 
 	useEffect(() => {
@@ -94,43 +107,28 @@ export default function FormServices() {
 									/>
 								</div>
 							</div>
-
+							<div className="d-flex justify-content-between">
 							<button type="submit" class="btn btn-primary mt-3">
 								Buscar
 							</button>
+							<button type="button" class="btn btn-primary mt-3"
+							onClick={()=>changePage()}
+							>
+
+								Criar Serviço
+							</button>
+							</div>
 						</form>
 						<hr />
-						<table class="table">
-							<thead>
-								<tr>
-									<th scope="col">#</th>
-									<th scope="col">Clientes</th>
-									<th scope="col">Serviços</th>
-									<th scope="col">Horário</th>
-								</tr>
-							</thead>
-							<tbody>
-								{ListServices.length ? (
-									<>
-										{ListServices.map((service) => (
-											<tr
-												key={
-													service.id_services_company
-												}
-											>
-												<th scope="row">1</th>
-												<td>{service.service}</td>
-												<td>{service.description}</td>
-												<td>{service.time}</td>
-												<td>{service.price}</td>
-											</tr>
-										))}
-									</>
-								) : (
-									<p>Não tem nada</p>
-								)}
-							</tbody>
-						</table>
+						<Table
+							header={['#','Clientes', 'Serviços','Horário', 'Valor']}
+							body={ListServices.map((service) => {
+								return [
+									service.id_services_company,service.service,service.description,service.time,service.price,
+								];
+							})}
+						/>
+
 					</div>
 				</div>
 			</div>
