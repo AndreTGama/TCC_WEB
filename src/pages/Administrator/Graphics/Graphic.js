@@ -3,7 +3,7 @@ import { Chart } from "react-google-charts";
 
 function App() {
   const [options, setOptions] = useState({
-    title: 'Gráfico de Inteações'
+    title: 'Gráfico de Interações'
   });
   const [optionsBar, setOptionsBar] = useState({
     title: 'Gráfico das Cidades'
