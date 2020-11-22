@@ -2,14 +2,17 @@ import React, { useEffect } from 'react';
 import { BsBuilding } from 'react-icons/bs';
 import { FaUserAlt } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import NavBar from '../../components/NavBar';
 import Graphic from './Graphics/Graphic';
 import '../../styles/color.css';
 import './style.css';
+import Routes from '../../routes/data/Routes';
+import RouteByPermission from '../../routes/data/RouteByPermission';
 
 export default function Index() {
 	const userActualType = useSelector((state) => state.userType.actualType);
+	const history = useHistory();
 
 	useEffect(() => {
 		console.log(userActualType);
@@ -23,7 +26,17 @@ export default function Index() {
 						<div className="col-12 col-md-6 col-lg-6">
 							<div className="card">
 								<div className="card-body">
-									<Link to="#">
+									<Link
+										to={() => {
+											return {
+												pathname: Routes.LOGGED_ROUTES(
+													RouteByPermission[
+														userActualType
+													]
+												).LIST_COMPANY,
+											};
+										}}
+									>
 										<div className="row">
 											<div className="col-lg-3 col-5 headerDashCards">
 												<div className="bg-blue">
@@ -50,7 +63,17 @@ export default function Index() {
 						<div className="col-12 col-md-6 col-lg-6">
 							<div className="card">
 								<div className="card-body">
-									<Link to="#">
+									<Link
+										to={() => {
+											return {
+												pathname: Routes.LOGGED_ROUTES(
+													RouteByPermission[
+														userActualType
+													]
+												).LIST_CLIENTE,
+											};
+										}}
+									>
 										<div className="row">
 											<div className="col-lg-3 col-5 headerDashCards">
 												<div className="bg-yellow">
