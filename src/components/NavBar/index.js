@@ -46,7 +46,7 @@ export default function SideBar() {
 					cName: 'nav-text',
 					path: Routes.LOGGED_ROUTES(
 						RouteByPermission[userActualType]
-					).LIST_CLIENTE,
+					).LIST_CLIENT,
 				},
 				{
 					id: 3,

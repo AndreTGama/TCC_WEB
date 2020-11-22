@@ -26,7 +26,7 @@ export default function RegisterCompany() {
 	const [dddCel, setDddCel] = useState('');
 	const [telNumber, setTelNumber] = useState('');
 	const [celNumber, setCelNumber] = useState('');
-	const [cnpj, setCnpj] = useState('');
+	const [cpf, setCpf] = useState('');
 	const [errorLogin, setErrorLogin] = useState('');
 	const [disableButton, setDisableButton] = useState(false);
 	const [cepNotFound, setCepNotFound] = useState(false);
@@ -57,8 +57,7 @@ export default function RegisterCompany() {
 			dddCel,
 			telNumber,
 			celNumber,
-			cpf: null,
-			cnpj,
+			cpf: cpf
 		};
 		const response = await api.post('/user/create-user', data);
 		if (response.data.error === false) {
@@ -131,7 +130,7 @@ export default function RegisterCompany() {
 		setDddCel('');
 		setTelNumber('');
 		setCelNumber('');
-		setCnpj('');
+		setCpf('');
 		setErrorLogin('');
 
 		history.push(
@@ -186,17 +185,17 @@ export default function RegisterCompany() {
 					<div className="row justify-content-start">
 						<div className="form-group col-12 col-md-6 col-lg-6">
 							<label htmlFor="cpf">
-								<b> CNPJ </b>
+								<b> cpf </b>
 							</label>
 							<InputMask
 								mask="99.999.999/9999-99"
 								type="text"
 								name="cpf"
 								id="cpf"
-								placeholder="Digite seu CNPJ"
+								placeholder="Digite seu cpf"
 								className="form-control"
 								onChange={(event) =>
-									setCnpj(event.target.value)
+									setCpf(event.target.value)
 								}
 								required
 							/>

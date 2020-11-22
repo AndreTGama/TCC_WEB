@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { BsBuilding } from 'react-icons/bs';
 import { FaUserAlt } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import NavBar from '../../components/NavBar';
 import Graphic from './Graphics/Graphic';
 import '../../styles/color.css';
@@ -12,11 +12,7 @@ import RouteByPermission from '../../routes/data/RouteByPermission';
 
 export default function Index() {
 	const userActualType = useSelector((state) => state.userType.actualType);
-	const history = useHistory();
 
-	useEffect(() => {
-		console.log(userActualType);
-	}, []);
 	return (
 		<>
 			<NavBar />
@@ -70,7 +66,7 @@ export default function Index() {
 													RouteByPermission[
 														userActualType
 													]
-												).LIST_CLIENTE,
+												).LIST_CLIENT,
 											};
 										}}
 									>

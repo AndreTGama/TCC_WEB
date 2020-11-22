@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import parseJwt from '../../helpers/parseJwt';
 import api from '../../services/api';
-import {FcEditImage} from 'react-icons/fc';
+import { FcEditImage } from 'react-icons/fc';
 
 export default function Profile() {
-
 	const [Password, setPassword] = useState('');
 	const [NameUser, setNameUser] = useState('');
 	const [Email, setEmail] = useState('');
@@ -20,79 +19,75 @@ export default function Profile() {
 	const [Cnpj, setCnpj] = useState('');
 	const [Disable, setDisable] = useState(true);
 
-	 async function loadClient() {
-			const token = localStorage.getItem('@token');
-			const tokenUsuario = parseJwt(token);
-			const dataPost = {idUser:tokenUsuario.sub}
-			const {data} = await api.post('/view/info-user',dataPost);
-			if(data.error === true){
-				alert('Erro');
-			}
-			else{
-				console.log(data.data);
-				setNameUser(data.data.name_user);
-				setEmail(data.data.email);
-				setPostCode(data.data.postcode);
-				setStreet(data.data.street);
-				setNumber(data.data.number);
-				setDistrict(data.data.district);
-				setCity(data.data.city);
-				setState(data.data.state);
-				setCountry(data.data.country);
-				setCpf(data.data.cpf);
-				setCnpj(data.data.cpnj);
-				setContacts(data.data.contacts);
-			}
+	async function loadClient() {
+		const token = localStorage.getItem('@token');
+		const tokenUsuario = parseJwt(token);
+		const dataPost = { idUser: tokenUsuario.sub };
+		const { data } = await api.post('/view/info-user', dataPost);
+		if (data.error === true) {
+			alert('Erro');
+		} else {
+			console.log(data.data);
+			setNameUser(data.data.name_user);
+			setEmail(data.data.email);
+			setPostCode(data.data.postcode);
+			setStreet(data.data.street);
+			setNumber(data.data.number);
+			setDistrict(data.data.district);
+			setCity(data.data.city);
+			setState(data.data.state);
+			setCountry(data.data.country);
+			setCpf(data.data.cpf);
+			setCnpj(data.data.cpnj);
+			setContacts(data.data.contacts);
 		}
-		useEffect(() => {
-			loadClient();
-		},[]);
+	}
+	useEffect(() => {
+		loadClient();
+	}, []);
 
-		function handleDisable(){
+	function handleDisable() {
+		setDisable(!Disable);
+	}
 
-			setDisable(!Disable);
-		}
-
-	async function handleSubmit(event){
-
+	async function handleSubmit(event) {
 		event.preventDefault();
-		 const dataPost = {
-			password:Password,
-			name_user:NameUser,
-			email:Email,
-			postCode:PostCode,
-			street:Street,
-			number:Number,
-			district:District,
-			city:City,
-			state:State,
-			country:Country,
-			contacts:Contacts,
-			cpf:Cpf,
-			cnpj:Cnpj
+		const dataPost = {
+			password: Password,
+			name_user: NameUser,
+			email: Email,
+			postCode: PostCode,
+			street: Street,
+			number: Number,
+			district: District,
+			city: City,
+			state: State,
+			country: Country,
+			contacts: Contacts,
+			cpf: Cpf,
+			cnpj: Cnpj,
+		};
+		const { data } = await api.post('/user/update-user', dataPost);
+		if (data.error === true) {
+			alert('Erro');
 		}
-		const {data} = await api.post('/user/update-user',dataPost);
-			if(data.error === true){
-				alert('Erro');
-			}
 	}
 
 	return (
-		<>
+		<main>
 			<div className="container">
 				<div className="card mt-3 ">
 					<div className="card-header">
 						<div className="d-flex justify-content-between">
-						<h5>Perfil</h5>
-						<button
-									type="button"
-									className="btn btn-link"
-									onClick={()=>handleDisable()}
-								>
-									<FcEditImage/>
-								</button>
+							<h5>Perfil</h5>
+							<button
+								type="button"
+								className="btn btn-link"
+								onClick={() => handleDisable()}
+							>
+								<FcEditImage />
+							</button>
 						</div>
-
 					</div>
 					<div className="card-body">
 						<form onSubmit={handleSubmit}>
@@ -283,6 +278,6 @@ export default function Profile() {
 					</div>
 				</div>
 			</div>
-		</>
+		</main>
 	);
 }

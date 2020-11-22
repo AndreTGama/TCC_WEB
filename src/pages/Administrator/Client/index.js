@@ -14,13 +14,13 @@ export default function Index() {
 	const history = useHistory();
 	const userActualType = useSelector((state) => state.userType.actualType);
 	const [isLoading, setIsLoading] = useState(true);
-	const [listCompany, setListCompany] = useState([]);
+	const [listClient, setListClient] = useState([]);
 
-	function OptionsButton({ idCompany }) {
+	function OptionsButton({ idCliente }) {
 		function viewNavigation() {
 			history.push(
 				Routes.LOGGED_ROUTES(RouteByPermission[userActualType])
-					.COMPANY + `/${idCompany}`
+					.CLIENT + `/${idCliente}`
 			);
 		}
 		return (
@@ -29,9 +29,9 @@ export default function Index() {
 					type="button"
 					aria-hidden
 					data-toggle="tooltip"
-					title="Consultar Empresa"
+					title="Consultar Cliente"
 					className="buttonViewColor"
-					onClick={() => viewNavigation(idCompany)}
+					onClick={() => viewNavigation(idCliente)}
 				>
 					<FaEye fill="#ffffff" />
 				</button>
@@ -41,16 +41,16 @@ export default function Index() {
 	function changePage() {
 		history.push(
 			Routes.LOGGED_ROUTES(RouteByPermission[userActualType])
-				.CREATE_COMPANY
+				.CREATE_CLIENT
 		);
 	}
 	useEffect(() => {
 		(async function () {
 			setIsLoading(true);
-			const { data } = await api.get('/list/company');
+			const { data } = await api.get('/list/client');
 			if (data.error)
 				swal({ icon: 'warning', title: 'Ops!', text: data.message });
-			else setListCompany(data.data);
+			else setListClient(data.data);
 			setIsLoading(false);
 		})();
 	}, []);
@@ -65,7 +65,7 @@ export default function Index() {
 						) : (
 							<div className="card">
 								<div className="card-header">
-									<h5>Lista de Empresas</h5>
+									<h5>Lista de Clientes</h5>
 								</div>
 								<div className="card-body">
 									<div className="row">
@@ -75,19 +75,19 @@ export default function Index() {
 												class="btn btn-primary"
 												onClick={() => changePage()}
 											>
-												Cadastrar uma Empresa
+												Cadastrar um Cliente
 											</button>
 										</div>
 										<div className="col-12 col-md-6 col-lg-6"></div>
 									</div>
 									<Table
 										header={['Nome Empre', 'Endereço', '']}
-										body={listCompany.map((company) => {
+										body={listClient.map((client) => {
 											return [
-												company.name_user,
-												` ${company.street} ${company.number}, ${company.district}, ${company.city} - ${company.state} ${company.postcode}`,
+												client.name_user,
+												` ${client.street} ${client.number}, ${client.district}, ${client.city} - ${client.state} ${client.postcode}`,
 												<OptionsButton
-													idCompany={company.id_user}
+													idCliente={client.id_user}
 												/>,
 											];
 										})}
