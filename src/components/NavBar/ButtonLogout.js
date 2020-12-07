@@ -23,9 +23,14 @@ export default function Menu() {
 
 	return (
 		<li className="nav-text">
-			<Link onClick={logoutUser}>
-				<FaSignOutAlt />
-				<span>Sair</span>
+			<Link
+				onClick={logoutUser}
+				className="nav-link sidebar-link text-light p-2"
+			>
+				<span className="mr-3 sidebar-icons">
+					<FaSignOutAlt />
+				</span>
+				Sair
 			</Link>
 		</li>
 	);

@@ -35,7 +35,7 @@ export default function SideBar() {
 					title: 'Empresas',
 					icon: <BsBuilding />,
 					cName: 'nav-text',
-					path:  Routes.LOGGED_ROUTES(
+					path: Routes.LOGGED_ROUTES(
 						RouteByPermission[userActualType]
 					).LIST_COMPANY,
 				},
@@ -119,64 +119,68 @@ export default function SideBar() {
 		}
 	}, [userActualType]);
 	useEffect(() => {
-		setSideBar(SideBarData.map(
-			({ id, title, path, icon, cName, dropDown, index }) => (
-				<>
-					<li key={index} className={cName}>
-						{dropDown ? (
-							<a
-								data-toggle="collapse"
-								href={`#collaspse${path}`}
-								role="button"
-								id={path}
-								aria-expanded="false"
-								aria-controls={`collaspse${path}`}
-								className="nav-link sidebar-link text-light p-2"
+		setSideBar(
+			SideBarData.map(
+				({ id, title, path, icon, cName, dropDown, index }) => (
+					<>
+						<li key={index} className={cName}>
+							{dropDown ? (
+								<a
+									data-toggle="collapse"
+									href={`#collaspse${path}`}
+									role="button"
+									id={path}
+									aria-expanded="false"
+									aria-controls={`collaspse${path}`}
+									className="nav-link sidebar-link text-light p-2"
+								>
+									<span className="mr-3 sidebar-icons">
+										{icon}
+									</span>
+									{title}
+								</a>
+							) : (
+								<Link
+									to={`${path}`}
+									className="nav-link sidebar-link text-light p-2"
+								>
+									<span className="mr-3 sidebar-icons">
+										{icon}
+									</span>
+									{title}
+								</Link>
+							)}
+							<div
+								className="collapse multi-collapse"
+								id={`collaspse${path}`}
 							>
-								<span className="mr-3 sidebar-icons">
-									{icon}
-								</span>
-								{title}
-							</a>
-						) : (
-							<Link
-								to={`${path}`}
-								className="nav-link sidebar-link text-light p-2"
-							>
-								<span className="mr-3 sidebar-icons">
-									{icon}
-								</span>
-								{title}
-							</Link>
-						)}
-						<div
-							className="collapse multi-collapse"
-							id={`collaspse${path}`}
-						>
-							<div className="sidebar-item">
-								{Array.isArray(dropDown) ? (
-									<ul>
-										{dropDown.map((subItem) => (
-											<li
-												className="submenusidebar"
-												key={subItem.id}
-											>
-												<Link
-													to={subItem.path}
-													className={subItem.cName}
+								<div className="sidebar-item">
+									{Array.isArray(dropDown) ? (
+										<ul>
+											{dropDown.map((subItem) => (
+												<li
+													className="submenusidebar"
+													key={subItem.id}
 												>
-													{subItem.title}
-												</Link>
-											</li>
-										))}
-									</ul>
-								) : null}
+													<Link
+														to={subItem.path}
+														className={
+															subItem.cName
+														}
+													>
+														{subItem.title}
+													</Link>
+												</li>
+											))}
+										</ul>
+									) : null}
+								</div>
 							</div>
-						</div>
-					</li>
-				</>
+						</li>
+					</>
+				)
 			)
-		));
+		);
 	}, [SideBarData]);
 
 	return (
@@ -206,6 +210,7 @@ export default function SideBar() {
 							</Link>
 						</li>
 						{sideBar}
+						<ButtonLogout />
 					</ul>
 				</nav>
 			</IconContext.Provider>
